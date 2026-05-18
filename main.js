@@ -1,0 +1,414 @@
+/* ============================================================
+   DEEPOWUD — main.js · v20260518
+   IIFE pattern — sin ES modules — compatible con file:// y CDN
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* ----- Utilidad: envuelve cada init en try/catch ----- */
+  function safe(fn, name) {
+    try { fn(); }
+    catch (e) { console.warn("[Deepowud:" + name + "]", e); }
+  }
+
+  /* ======================================================
+     1. NAVBAR — transparente → sólido al hacer scroll
+     ====================================================== */
+  function initNavbar() {
+    var navbar   = document.getElementById("navbar");
+    var toggle   = document.getElementById("navToggle");
+    var navLinks = document.getElementById("navLinks");
+
+    if (!navbar) return;
+
+    /* Scroll: añade clase .scrolled */
+    function onScroll() {
+      if (window.scrollY > 60) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* Hamburger mobile */
+    if (toggle && navLinks) {
+      toggle.addEventListener("click", function () {
+        var isOpen = navLinks.classList.toggle("open");
+        toggle.classList.toggle("active", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    /* Cierra el menú al hacer clic en un link (mobile) */
+    var links = navLinks ? navLinks.querySelectorAll("a.nav-link") : [];
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        navLinks.classList.remove("open");
+        toggle && toggle.classList.remove("active");
+        toggle && toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* ======================================================
+     2. DROPDOWN "Empresa"
+     ====================================================== */
+  function initDropdown() {
+    var trigger   = document.getElementById("dropdownTrigger");
+    var menu      = document.getElementById("dropdownMenu");
+    var container = trigger ? trigger.closest(".nav-item-dropdown") : null;
+
+    if (!trigger || !menu || !container) return;
+
+    function open() {
+      container.classList.add("open");
+      trigger.setAttribute("aria-expanded", "true");
+    }
+    function close() {
+      container.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    }
+    function toggle() {
+      container.classList.contains("open") ? close() : open();
+    }
+
+    trigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggle();
+    });
+
+    /* Cierra al hacer clic fuera */
+    document.addEventListener("click", function (e) {
+      if (!container.contains(e.target)) close();
+    });
+
+    /* Cierra con Escape */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+  }
+
+  /* ======================================================
+     3. MODAL BROCHURE
+     ====================================================== */
+  function initBrochureModal() {
+    var openBtn   = document.getElementById("openBrochureBtn");
+    var modal     = document.getElementById("brochureModal");
+    var backdrop  = document.getElementById("modalBackdrop");
+    var closeBtn  = document.getElementById("closeModal");
+    var frame     = document.getElementById("brochureFrame");
+
+    if (!openBtn || !modal || !backdrop) return;
+
+    var pdfSrc = "assets/docs/brochure.pdf";
+    var loaded = false;
+
+    function openModal() {
+      /* Carga el PDF solo una vez */
+      if (!loaded && frame) {
+        frame.src = pdfSrc;
+        loaded = true;
+      }
+      modal.classList.add("open");
+      backdrop.classList.add("open");
+      document.body.style.overflow = "hidden";
+
+      /* Cierra el dropdown */
+      var dropdown = document.getElementById("dropdownTrigger");
+      if (dropdown) {
+        var container = dropdown.closest(".nav-item-dropdown");
+        if (container) container.classList.remove("open");
+      }
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      backdrop.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    openBtn.addEventListener("click", openModal);
+    if (closeBtn)  closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
+  }
+
+  /* ======================================================
+     4. SCROLL SUAVE PARA ANCHORS
+     ====================================================== */
+  function initSmoothScroll() {
+    document.addEventListener("click", function (e) {
+      var anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      var id = anchor.getAttribute("href");
+      if (!id || id === "#") return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      var navOffset = 80;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - navOffset,
+        behavior: "smooth"
+      });
+    });
+  }
+
+  /* ======================================================
+     5. REVEAL ON SCROLL (IntersectionObserver)
+     ====================================================== */
+  function initReveals() {
+    var elements = document.querySelectorAll(".reveal");
+    if (!elements.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.04, rootMargin: "0px 0px -4% 0px" });
+
+    elements.forEach(function (el, i) {
+      /* Escalonado suave */
+      el.style.transitionDelay = (i % 6) * 80 + "ms";
+      io.observe(el);
+    });
+
+    /* Safety: a los 6s revela cualquier elemento aún oculto */
+    setTimeout(function () {
+      elements.forEach(function (el) {
+        if (!el.classList.contains("is-visible") &&
+            el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add("is-visible");
+        }
+      });
+    }, 6000);
+  }
+
+  /* ======================================================
+     6. COUNTERS (estadísticas Acerca De)
+     ====================================================== */
+  function initCounters() {
+    var counters = document.querySelectorAll("[data-count-to]");
+    if (!counters.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el  = entry.target;
+        var end = parseInt(el.getAttribute("data-count-to"), 10);
+        var dur = 1400;
+        var start = performance.now();
+
+        function step(now) {
+          var progress = Math.min((now - start) / dur, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(ease * end);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ======================================================
+     7. FORMULARIO DE CONTACTO (FormSubmit AJAX)
+     ====================================================== */
+  function initContactForm() {
+    var form      = document.getElementById("contactForm");
+    var submitBtn = document.getElementById("submitBtn");
+    var success   = document.getElementById("formSuccess");
+    var error     = document.getElementById("formError");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      /* Validación básica */
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      /* Estado enviando */
+      var btnText    = submitBtn.querySelector(".btn-text");
+      var btnSending = submitBtn.querySelector(".btn-sending");
+      submitBtn.disabled  = true;
+      if (btnText)    btnText.style.display    = "none";
+      if (btnSending) btnSending.style.display = "inline";
+      if (success)    success.style.display    = "none";
+      if (error)      error.style.display      = "none";
+
+      var data = {
+        name:    form.querySelector('[name="name"]')    ? form.querySelector('[name="name"]').value    : "",
+        email:   form.querySelector('[name="email"]')   ? form.querySelector('[name="email"]').value   : "",
+        phone:   form.querySelector('[name="phone"]')   ? form.querySelector('[name="phone"]').value   : "",
+        message: form.querySelector('[name="message"]') ? form.querySelector('[name="message"]').value : ""
+      };
+
+      fetch("https://formsubmit.co/ajax/contacto@deepowud.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (json.success === "true" || json.success === true) {
+          if (success) success.style.display = "block";
+          form.reset();
+        } else {
+          if (error) error.style.display = "block";
+        }
+      })
+      .catch(function () {
+        if (error) error.style.display = "block";
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        if (btnText)    btnText.style.display    = "inline";
+        if (btnSending) btnSending.style.display = "none";
+      });
+    });
+  }
+
+  /* ======================================================
+     8. SCROLL ACTIVO EN NAVBAR (resalta sección actual)
+     ====================================================== */
+  function initActiveNav() {
+    var sections = document.querySelectorAll("section[id], footer[id]");
+    var navLinks = document.querySelectorAll(".nav-link[href^='#']");
+    if (!sections.length || !navLinks.length) return;
+
+    function update() {
+      var scrollY = window.scrollY + 100;
+      var current = "";
+      sections.forEach(function (sec) {
+        if (sec.offsetTop <= scrollY) current = sec.id;
+      });
+      navLinks.forEach(function (link) {
+        var href = link.getAttribute("href").replace("#", "");
+        link.classList.toggle("active-link", href === current);
+      });
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+
+  /* ======================================================
+     9. HERO LOCK — congela las animaciones de entrada del hero
+        para que el word-cycle nunca las vuelva a disparar
+     ====================================================== */
+  function initHeroLock() {
+    var els = document.querySelectorAll(
+      '.hero-kicker, .hero-title, .hero-sub, .hero-ctas, .hero-scroll'
+    );
+    /* La animación más tardía termina a los ~1.8 s (delay 1s + dur 0.8s).
+       A los 2.2 s les quitamos animation y fijamos el estado final. */
+    setTimeout(function () {
+      els.forEach(function (el) {
+        el.style.opacity   = '1';
+        el.style.transform = 'translateY(0)';
+        el.style.animation = 'none';
+      });
+    }, 2200);
+  }
+
+  /* ======================================================
+     10. WORD CYCLE — palabra giratoria en el hero
+     ====================================================== */
+  function initWordCycle() {
+    var words   = ['Certificada.', 'Confiable.', 'Sin igual.', 'Amigable.'];
+    var idx     = 0;
+    var el      = document.getElementById('wordCycle');
+    if (!el) return;
+
+    var wrapper = el.parentElement;
+
+    /* Fija el ancho del wrapper al ancho real de "Certificada"
+       (la palabra más larga) para que ningún cambio desplace el layout */
+    function lockWidth() {
+      var prev = el.textContent;
+      el.textContent = 'Certificada.';   /* mide con punto — igual que el resto */
+      var w = el.getBoundingClientRect().width;
+      if (w > 0) wrapper.style.minWidth = w + 'px';
+      el.textContent = prev;             /* restaura el texto que había */
+    }
+    lockWidth();
+
+    /* Recalcula si la ventana cambia de tamaño (font-size es responsive) */
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(lockWidth, 150);
+    });
+
+    function swap() {
+      el.classList.remove('anim-in');
+      el.classList.add('anim-out');
+
+      setTimeout(function () {
+        idx = (idx + 1) % words.length;
+        el.textContent = words[idx];
+        el.classList.remove('anim-out');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.classList.add('anim-in');
+          });
+        });
+      }, 320);
+    }
+
+    /* Primera rotación a los 3.5 s, luego cada 3.5 s */
+    setInterval(swap, 3500);
+  }
+
+  /* ======================================================
+     10. HOVER CARDS — elevación suave (sin JS, es CSS)
+         Solo registramos el listener de la imagen del hero
+         para añadir un leve parallax interno
+     ====================================================== */
+  function initHeroParallax() {
+    var heroEl = document.querySelector(".hero-video") || document.querySelector(".hero-img img");
+    if (!heroEl) return;
+    if (window.matchMedia("(max-width: 768px)").matches) return;
+
+    window.addEventListener("scroll", function () {
+      var shift = window.scrollY * 0.25;
+      heroEl.style.transform = "translateY(" + shift + "px) scale(1.04)";
+    }, { passive: true });
+  }
+
+  /* ======================================================
+     BOOT
+     ====================================================== */
+  function boot() {
+    safe(initNavbar,       "initNavbar");
+    safe(initDropdown,     "initDropdown");
+    safe(initBrochureModal,"initBrochureModal");
+    safe(initSmoothScroll, "initSmoothScroll");
+    safe(initReveals,      "initReveals");
+    safe(initCounters,     "initCounters");
+    safe(initContactForm,  "initContactForm");
+    safe(initActiveNav,    "initActiveNav");
+    safe(initHeroLock,     "initHeroLock");
+    safe(initWordCycle,    "initWordCycle");
+    safe(initHeroParallax, "initHeroParallax");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+})();

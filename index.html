@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepowud — Madera Legal y Certificada</title>
+  <meta name="description" content="Deepowud ofrece servicios para madera y venta de madera dimensionada con respaldo fitosanitario certificado por el ICA." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=20260518" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="nav-logo">
+        <img src="assets/img/logo-nav.svg" alt="Deepowud" height="44" />
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+
+        <li class="nav-item-dropdown">
+          <button class="nav-link dropdown-trigger" id="dropdownTrigger" aria-haspopup="true" aria-expanded="false">
+            Empresa <svg class="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="dropdown-menu" id="dropdownMenu" role="list">
+            <li>
+              <button class="dropdown-item open-brochure" id="openBrochureBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Brochure
+              </button>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="#productos" class="nav-link">Productos</a></li>
+        <li><a href="#servicios" class="nav-link">Servicios</a></li>
+        <li><a href="#contacto" class="nav-link nav-link-cta">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== MODAL BROCHURE ===== -->
+  <div class="modal-overlay" id="brochureModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="modalTitle">Brochure Deepowud</span>
+        <div class="modal-actions">
+          <a href="assets/docs/brochure.pdf" download="Brochure_Deepowud.pdf" class="btn-download">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar PDF
+          </a>
+          <button class="modal-close" id="closeModal" aria-label="Cerrar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <iframe id="brochureFrame" src="" title="Brochure Deepowud" class="pdf-viewer"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-img">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/img/hero-video.webm" type="video/webm" />
+        <source src="assets/img/hero-video.mov" type="video/quicktime" />
+        <img src="assets/img/hero-v7.jpg" alt="Bosque de pinos Deepowud" />
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-kicker">Deepowud · Madera con Propósito</p>
+      <h1 class="hero-title">
+        Madera Legal.<br>
+        <em>Calidad <span class="word-wrapper"><span class="word-cycle" id="wordCycle" aria-live="polite">Certificada.</span></span></em>
+      </h1>
+      <p class="hero-sub">
+        Comercializamos y procesamos madera dimensionada con respaldo fitosanitario,
+        cumpliendo los más altos estándares de legalidad y sostenibilidad.
+      </p>
+      <div class="hero-ctas">
+        <a href="#productos" class="btn-primary">Ver Productos</a>
+        <a href="#contacto" class="btn-ghost">Contáctanos</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      <span class="scroll-label">Conoce más</span>
+    </div>
+  </section>
+
+  <!-- ===== ACERCA DE ===== -->
+  <section class="section acerca" id="empresa" aria-label="Empresa">
+    <div class="container">
+      <div class="acerca-grid">
+        <div class="acerca-img reveal">
+          <img src="assets/img/about.jpg" alt="Equipo y taller Deepowud" loading="lazy" />
+          <div class="acerca-img-badge">
+            <span class="badge-num">+10</span>
+            <span class="badge-txt">años de experiencia</span>
+          </div>
+        </div>
+        <div class="acerca-text">
+          <p class="section-kicker">Quiénes Somos</p>
+          <h2 class="section-title reveal">Compromiso con la madera sostenible</h2>
+          <p class="reveal">
+            Deepowud es una empresa especializada en la comercialización y procesamiento
+            de madera dimensionada, con un firme compromiso hacia la sostenibilidad y la
+            legalidad forestal. Nuestro equipo cuenta con años de experiencia en la cadena
+            de valor de la madera, garantizando productos de la más alta calidad.
+          </p>
+          <p class="reveal">
+            Trabajamos con especies certificadas y procesos que respetan las normativas
+            ambientales vigentes, aportando valor a nuestros clientes con soluciones
+            integrales en madera para construcción, industria y exportación.
+          </p>
+          <div class="acerca-stats reveal">
+            <div class="stat">
+              <span class="stat-num" data-count-to="10">10</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Años de experiencia</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count-to="50">50</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Clientes satisfechos</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count-to="100">100</span><span class="stat-suffix">%</span>
+              <span class="stat-label">Madera legal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPRA LEGAL ===== -->
+  <section class="section legal" id="legal" aria-label="Compra legal">
+    <div class="legal-bg">
+      <img src="assets/img/legal.jpg" alt="Bosque certificado sostenible" loading="lazy" />
+    </div>
+    <div class="legal-overlay"></div>
+    <div class="container legal-content">
+      <p class="section-kicker light">Transparencia y Legalidad</p>
+      <h2 class="section-title light reveal">Tu compra de madera,<br>completamente legal</h2>
+      <p class="section-sub light reveal">
+        En Deepowud cada pieza de madera tiene historia documentada. Compras con
+        la tranquilidad de que cumples la ley y cuidas el planeta.
+      </p>
+      <div class="legal-grid">
+        <div class="legal-card reveal">
+          <div class="legal-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Trazabilidad Verificada</h3>
+          <p>Cada pieza cuenta con documentación oficial que acredita su origen legal, desde el bosque hasta tu proyecto.</p>
+        </div>
+        <div class="legal-card reveal">
+          <div class="legal-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Salvoconductos de Movilización</h3>
+          <p>Todos nuestros productos cuentan con los salvoconductos exigidos por la normativa ambiental colombiana vigente.</p>
+        </div>
+        <div class="legal-card reveal">
+          <div class="legal-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Cumplimiento Normativo</h3>
+          <p>Operamos bajo el marco legal del MADS y la ANLA, garantizando que tu inversión está respaldada por la ley.</p>
+        </div>
+        <div class="legal-card reveal">
+          <div class="legal-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Cadena de Custodia</h3>
+          <p>Mantenemos una cadena de custodia transparente que protege tanto al comprador como al medio ambiente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ESPECIES ===== -->
+  <section class="section especies" id="especies" aria-label="Especies">
+    <div class="container">
+      <p class="section-kicker">Catálogo Forestal</p>
+      <h2 class="section-title reveal">Especies que manejamos</h2>
+      <p class="section-sub reveal">
+        Trabajamos con una selección de especies maderables de alta calidad, cada una
+        con propiedades únicas para diferentes aplicaciones constructivas e industriales.
+      </p>
+      <div class="species-grid">
+        <div class="species-card reveal">
+          <div class="species-icon">🌲</div>
+          <h3>Pino</h3>
+          <p class="species-sci">Pinus spp.</p>
+          <p>Construcción general, embalajes y carpintería estructural.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🌳</div>
+          <h3>Cedro</h3>
+          <p class="species-sci">Cedrela odorata</p>
+          <p>Mueblería fina, carpintería y fabricación de puertas.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🌿</div>
+          <h3>Eucalipto</h3>
+          <p class="species-sci">Eucalyptus spp.</p>
+          <p>Postes, construcciones rústicas y producción de pulpa.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🪵</div>
+          <h3>Abarco</h3>
+          <p class="species-sci">Cariniana pyriformis</p>
+          <p>Estructuras resistentes, pisos y usos industriales.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🌴</div>
+          <h3>Teca</h3>
+          <p class="species-sci">Tectona grandis</p>
+          <p>Muebles de exterior, embarcaciones y acabados premium.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🍂</div>
+          <h3>Roble</h3>
+          <p class="species-sci">Quercus spp.</p>
+          <p>Pisos de alta durabilidad, mueblería y toneles.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🌱</div>
+          <h3>Laurel</h3>
+          <p class="species-sci">Cordia alliodora</p>
+          <p>Mueblería, tableros y carpintería de interiores.</p>
+        </div>
+        <div class="species-card reveal">
+          <div class="species-icon">🌰</div>
+          <h3>Nogal</h3>
+          <p class="species-sci">Juglans neotropica</p>
+          <p>Ebanistería de lujo, instrumentos y accesorios premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTOS ===== -->
+  <section class="section productos" id="productos" aria-label="Productos">
+    <div class="container">
+      <p class="section-kicker light">Lo que ofrecemos</p>
+      <h2 class="section-title light reveal">Nuestros Productos</h2>
+      <p class="section-sub light reveal">
+        Soluciones en madera para logística, construcción e industria. Calidad,
+        dimensionado exacto y respaldo documental en cada entrega.
+      </p>
+      <div class="products-grid">
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Estibas de madera" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="5"/><rect x="2" y="10" width="20" height="5"/><rect x="2" y="17" width="20" height="5"/></svg>
+            </div>
+            <h3>Estibas</h3>
+            <p>Pallets de madera para logística y almacenamiento. Disponibles en medidas estándar y personalizadas para su operación.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Chazas de madera" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <h3>Chazas</h3>
+            <p>Piezas de madera para relleno y soporte en construcción, carpintería y obras civiles de todo tipo.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Huacalaes de madera" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <h3>Huacalaes</h3>
+            <p>Cajas y cajones robustos en madera para transporte de mercancías pesadas, maquinaria y equipos.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Embalajes y empaques" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            </div>
+            <h3>Embalajes y Empaques</h3>
+            <p>Soluciones de embalaje en madera para proteger tu mercancía durante el transporte nacional e internacional.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Maderas dimensionadas" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+            </div>
+            <h3>Maderas Dimensionadas</h3>
+            <p>Tablas, tablones y vigas cortadas a medida con acabado listo para uso inmediato en construcción y carpintería.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal">
+          <div class="product-img">
+            <img src="assets/img/species.jpg" alt="Maderas rollizas" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h3>Maderas Rollizas</h3>
+            <p>Troncos sin procesar para usos estructurales, postes, aplicaciones rústicas y proyectos de gran escala.</p>
+          </div>
+        </div>
+
+        <div class="product-card reveal product-card-wide">
+          <div class="product-img">
+            <img src="assets/img/products.jpg" alt="Tablillas y tendidos de cama" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <div class="product-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9V5a2 2 0 012-2h16a2 2 0 012 2v4"/><path d="M2 13v6"/><path d="M22 13v6"/><path d="M2 13h20"/><rect x="6" y="13" width="12" height="7"/></svg>
+            </div>
+            <h3>Tablillas y Tendidos de Cama</h3>
+            <p>Láminas delgadas y tendidos en madera de calidad para el sector del mueble, ideal para sommiers y bases de cama con acabados precisos.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICIOS ===== -->
+  <section class="section servicios" id="servicios" aria-label="Servicios">
+    <div class="container">
+      <p class="section-kicker">Lo que hacemos</p>
+      <h2 class="section-title reveal">Nuestros Servicios</h2>
+      <p class="section-sub reveal">
+        Desde el corte hasta la certificación fitosanitaria, acompañamos a nuestros clientes
+        en cada etapa del proceso de la madera.
+      </p>
+
+      <div class="services-grid">
+
+        <div class="service-card service-card-main reveal">
+          <div class="service-badge">Certificación Oficial</div>
+          <div class="service-icon-large">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <h3>Tratamiento Fitosanitario</h3>
+          <p>
+            Realizamos el tratamiento fitosanitario de la madera bajo la norma NIMF-15,
+            indispensable para exportaciones y proyectos que requieren cumplimiento
+            de estándares internacionales de sanidad vegetal.
+          </p>
+          <div class="ica-block">
+            <p class="ica-label">Certificado por:</p>
+            <div class="ica-logo-placeholder" title="Espacio para logo ICA">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              <span>Logo ICA<br><small>Certificador Fitosanitario</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
+          </div>
+          <h3>Corte y Dimensionado</h3>
+          <p>Procesamos la madera según las especificaciones de tu proyecto, con cortes precisos y acabados de calidad industrial.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Diseño de Embalajes</h3>
+          <p>Diseñamos y fabricamos embalajes a medida para proteger tu mercancía en transporte nacional e internacional.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3>Asesoría en Importación / Exportación</h3>
+          <p>Te acompañamos en los procesos documentales para la movilización legal de madera a nivel nacional e internacional.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Control de Calidad</h3>
+          <p>Inspeccionamos cada lote para garantizar que la madera cumple con los estándares de humedad, resistencia y dimensión acordados.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLIENTES ===== -->
+  <section class="section clientes" id="clientes" aria-label="Tipos de clientes">
+    <div class="clientes-bg">
+      <img src="assets/img/clients.jpg" alt="Clientes Deepowud" loading="lazy" />
+    </div>
+    <div class="clientes-overlay"></div>
+    <div class="container clientes-content">
+      <p class="section-kicker light">A quiénes servimos</p>
+      <h2 class="section-title light reveal">Nuestros Clientes</h2>
+      <div class="clientes-grid">
+        <div class="cliente-card reveal">
+          <div class="cliente-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22V12L12 2l10 10v10H2z"/><rect x="9" y="15" width="6" height="7"/></svg>
+          </div>
+          <h3>Constructoras y Contratistas</h3>
+          <p>Empresas constructoras que requieren madera dimensionada para obras civiles, estructuras y acabados.</p>
+        </div>
+        <div class="cliente-card reveal">
+          <div class="cliente-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <h3>Industria del Mueble</h3>
+          <p>Fabricantes de muebles que necesitan tablillas, maderas dimensionadas y materiales de calidad constante.</p>
+        </div>
+        <div class="cliente-card reveal">
+          <div class="cliente-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3>Importadores y Exportadores</h3>
+          <p>Compañías que requieren embalajes certificados NIMF-15 y documentación fitosanitaria para comercio exterior.</p>
+        </div>
+        <div class="cliente-card reveal">
+          <div class="cliente-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <h3>Comercializadores de Madera</h3>
+          <p>Distribuidores y comercializadores que necesitan volumen con trazabilidad legal y documentación de origen.</p>
+        </div>
+        <div class="cliente-card reveal">
+          <div class="cliente-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Proyectos de Infraestructura</h3>
+          <p>Obras públicas y privadas que requieren maderas rollizas y dimensionadas para estructuras de gran escala.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POLÍTICA DE DATOS ===== -->
+  <section class="section datos" id="datos" aria-label="Política de datos">
+    <div class="container">
+      <p class="section-kicker">Privacidad</p>
+      <h2 class="section-title reveal">Política de Tratamiento<br>de Datos Personales</h2>
+      <div class="datos-content reveal">
+        <div class="datos-box">
+          <h3>Responsable del Tratamiento</h3>
+          <p><strong>Deepowud</strong> — <a href="mailto:contacto@deepowud.com">contacto@deepowud.com</a></p>
+        </div>
+        <div class="datos-box">
+          <h3>Finalidad</h3>
+          <p>Los datos personales recopilados a través de este sitio son utilizados exclusivamente para responder solicitudes de información, gestionar relaciones comerciales y enviar comunicaciones relacionadas con nuestros productos y servicios, en cumplimiento de la <strong>Ley 1581 de 2012</strong> y el Decreto 1377 de 2013.</p>
+        </div>
+        <div class="datos-box">
+          <h3>Datos que tratamos</h3>
+          <p>Nombre completo, correo electrónico, número de teléfono y la información que usted nos comparta voluntariamente a través del formulario de contacto.</p>
+        </div>
+        <div class="datos-box">
+          <h3>Derechos del Titular</h3>
+          <p>Usted tiene derecho a conocer, actualizar, rectificar y suprimir sus datos personales. Para ejercer estos derechos, escríbanos a <a href="mailto:contacto@deepowud.com">contacto@deepowud.com</a>.</p>
+        </div>
+        <div class="datos-box">
+          <h3>Vigencia</h3>
+          <p>Sus datos serán conservados durante el tiempo necesario para cumplir la finalidad de su recopilación, o hasta que usted solicite su eliminación.</p>
+        </div>
+        <div class="datos-box">
+          <h3>Transferencia</h3>
+          <p>Deepowud no vende, alquila ni cede sus datos personales a terceros sin su consentimiento expreso, salvo obligación legal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER / CONTACTO ===== -->
+  <footer class="footer" id="contacto" aria-label="Contacto y pie de página">
+    <div class="container footer-grid">
+
+      <div class="footer-info">
+        <img src="assets/img/logo.svg" alt="Deepowud" class="footer-logo" height="48" />
+        <p class="footer-desc">
+          Madera legal, dimensionada y certificada para construcción,
+          exportación e industria. Tu socio confiable en madera.
+        </p>
+        <div class="footer-social">
+          <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Deepowud" class="social-link social-wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/deepowud" target="_blank" rel="noopener noreferrer" aria-label="Facebook Deepowud" class="social-link social-fb">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/deepowud" target="_blank" rel="noopener noreferrer" aria-label="Instagram Deepowud" class="social-link social-ig">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+        <p class="footer-contact-info">
+          <a href="mailto:contacto@deepowud.com">contacto@deepowud.com</a>
+        </p>
+      </div>
+
+      <div class="footer-form-wrap">
+        <h3 class="footer-form-title">Escríbenos</h3>
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="form-group">
+            <label for="fname">Nombre completo *</label>
+            <input type="text" id="fname" name="name" required placeholder="Tu nombre" autocomplete="name" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="femail">Correo electrónico *</label>
+              <input type="email" id="femail" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="fphone">Teléfono / WhatsApp</label>
+              <input type="tel" id="fphone" name="phone" placeholder="+57 300 000 0000" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fmsg">Mensaje *</label>
+            <textarea id="fmsg" name="message" required rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="fdatos" name="datos" required />
+            <label for="fdatos">Acepto la <a href="#datos">Política de Tratamiento de Datos</a></label>
+          </div>
+          <button type="submit" class="btn-primary btn-submit" id="submitBtn">
+            <span class="btn-text">Enviar mensaje</span>
+            <span class="btn-sending" style="display:none">Enviando…</span>
+          </button>
+          <p class="form-success" id="formSuccess" style="display:none">
+            ✅ ¡Mensaje enviado! Te responderemos pronto.
+          </p>
+          <p class="form-error" id="formError" style="display:none">
+            ❌ Error al enviar. Intenta de nuevo o escríbenos directamente.
+          </p>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2026 Deepowud. Todos los derechos reservados.</p>
+        <p><a href="#datos">Política de Datos</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Flotante -->
+  <a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script defer src="lib/gsap.min.js"></script>
+  <script defer src="lib/ScrollTrigger.min.js"></script>
+  <script defer src="main.js?v=20260518"></script>
+</body>
+</html>
